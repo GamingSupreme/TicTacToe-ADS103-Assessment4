@@ -127,6 +127,11 @@ bool GameBoard::checkIfAnyPlacesFree()
 	return false;
 }
 
+void GameBoard::clearScreen()
+{
+	SDL_RenderClear(renderer);
+}
+
 void GameBoard::draw()
 {
 	for (int x = 0; x < 3; x++)

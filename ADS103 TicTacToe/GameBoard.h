@@ -40,6 +40,7 @@ public:
 	bool checkForClick(SDL_Event& event, char type);
 	bool checkForWin(char type);
 	bool checkIfAnyPlacesFree();
+	void clearScreen();
 
 	void draw();
 

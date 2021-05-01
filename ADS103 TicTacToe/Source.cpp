@@ -2,6 +2,7 @@
 #include <string>
 #include <SDL.h>
 #include "GameBoard.h"
+#include "TitleScreen.h"
 
 using namespace std;
 
@@ -38,36 +39,59 @@ int main(int argc, char** arrgv)
 	}
 
 	GameBoard gameBoard(renderer);
+	TitleScreen titleScreen(renderer);
+	int gameState = 1;
 
 	bool quit = false;
 	//Game Loop incoming
 	while (!quit)
 	{
-		//Get user inputs
 		SDL_Event e;
-		while (SDL_PollEvent(&e) != 0)
+		if (gameState == 1)
 		{
-			//user clicks close button
-			if (e.type == SDL_QUIT)
-				quit = true;
-			if (e.type == SDL_KEYDOWN)
+			//Get user inputs
+			while (SDL_PollEvent(&e) != 0)
 			{
-				if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-				{
+				//user clicks close button
+				if (e.type == SDL_QUIT)
 					quit = true;
-				}
-				if (e.key.keysym.scancode == SDL_SCANCODE_RETURN)
+				if (e.type == SDL_KEYDOWN)
 				{
-					gameBoard.clearBoard();
+					if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+					{
+						quit = true;
+					}
 				}
 			}
 
-			if (gameBoard.checkForClick(e, GameBoard::CROSS))
+
+		}
+		else if (gameState == 2)
+		{
+			while (SDL_PollEvent(&e) != 0)
 			{
-				Move aiMove = gameBoard.findBestMove(gameBoard.opponent);
-				if (aiMove.row != -1 && aiMove.col != -1)
+				//user clicks close button
+				if (e.type == SDL_QUIT)
+					quit = true;
+				if (e.type == SDL_KEYDOWN)
 				{
-					gameBoard.setTile(gameBoard.opponent, aiMove.row, aiMove.col);
+					if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+					{
+						quit = true;
+					}
+					if (e.key.keysym.scancode == SDL_SCANCODE_RETURN)
+					{
+						gameBoard.clearBoard();
+					}
+				}
+
+				if (gameBoard.checkForClick(e, GameBoard::CROSS))
+				{
+					Move aiMove = gameBoard.findBestMove(gameBoard.opponent);
+					if (aiMove.row != -1 && aiMove.col != -1)
+					{
+						gameBoard.setTile(gameBoard.opponent, aiMove.row, aiMove.col);
+					}
 				}
 			}
 		}
@@ -75,10 +99,19 @@ int main(int argc, char** arrgv)
 
 		SDL_SetRenderDrawColor(renderer, 170, 170, 170, 255); //rgba(0-255) //Use paint to change color of background, the first three numbers colorate to red green and blue
 		SDL_RenderClear(renderer);
+		
+		titleScreen.draw();
 
-		gameBoard.draw();
+		if (gameState == 1)
+		{
+			gameState = titleScreen.checkForClick(e);
+		}
 
-
+		if (gameState == 2)
+		{
+			gameBoard.clearScreen();
+			gameBoard.draw();
+		}
 
 		//swaps the buffers
 		SDL_RenderPresent(renderer);
