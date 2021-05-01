@@ -40,7 +40,7 @@ int main(int argc, char** arrgv)
 
 	GameBoard gameBoard(renderer);
 	TitleScreen titleScreen(renderer);
-	int gameState = 2;
+	int gameState = 1;
 
 	bool quit = false;
 	//Game Loop incoming
@@ -63,6 +63,7 @@ int main(int argc, char** arrgv)
 					}
 				}
 			}
+			gameState = titleScreen.checkForClick(e);
 
 
 		}
@@ -83,6 +84,12 @@ int main(int argc, char** arrgv)
 					{
 						gameBoard.clearBoard();
 					}
+					if (e.key.keysym.scancode == SDL_SCANCODE_X)
+					{
+						gameBoard.clearScreen();
+						titleScreen.draw();
+						gameState = 1;
+					}
 				}
 
 				if (gameBoard.checkForClick(e, GameBoard::CROSS))
@@ -102,10 +109,10 @@ int main(int argc, char** arrgv)
 		
 		titleScreen.draw();
 
-		if (gameState == 1)
+		/*if (gameState == 1)
 		{
 			gameState = titleScreen.checkForClick(e);
-		}
+		}*/
 
 		if (gameState == 2)
 		{
