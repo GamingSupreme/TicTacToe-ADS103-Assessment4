@@ -22,10 +22,10 @@ public:
 	static char NAUGHT;
 
 	SDL_Renderer* renderer;
-	SDL_Texture* blank, * cross, * naught;
+	SDL_Texture* blank, * cross, * naught, * computerWin, * playerWin, * playAgain, *drawGame, * exitGame;
 
 	char board[3][3];
-	int boardX = 500, boardY = 100;
+	int boardX = 425, boardY = 200;
 	int tileSize = 50;
 
 	char player = CROSS, opponent = NAUGHT;

@@ -11,6 +11,11 @@ GameBoard::GameBoard(SDL_Renderer* renderer)
 	blank = IMG_LoadTexture(renderer, "assets/blank.png");
 	cross = IMG_LoadTexture(renderer, "assets/cross.png");
 	naught = IMG_LoadTexture(renderer, "assets/naught.png");
+	playerWin = IMG_LoadTexture(renderer, "assets/PlayerWin.png");
+	computerWin = IMG_LoadTexture(renderer, "assets/ComputerWins.png");
+	playAgain = IMG_LoadTexture(renderer, "assets/PlayAgain.png");
+	drawGame = IMG_LoadTexture(renderer, "assets/Draw.png");
+	exitGame = IMG_LoadTexture(renderer, "assets/Exit.png");
 
 	clearBoard();
 }
@@ -20,6 +25,11 @@ GameBoard::~GameBoard()
 	SDL_DestroyTexture(blank);
 	SDL_DestroyTexture(cross);
 	SDL_DestroyTexture(naught);
+	SDL_DestroyTexture(playerWin);
+	SDL_DestroyTexture(computerWin);
+	SDL_DestroyTexture(playAgain);
+	SDL_DestroyTexture(drawGame);
+
 }
 
 void GameBoard::clearBoard()
@@ -134,6 +144,7 @@ void GameBoard::clearScreen()
 
 void GameBoard::draw()
 {
+	SDL_Rect drawRect;
 	for (int x = 0; x < 3; x++)
 	{
 		for (int y = 0; y < 3; y++)
@@ -150,6 +161,61 @@ void GameBoard::draw()
 				SDL_RenderCopy(renderer, cross, NULL, &drawRect);
 			if (board[x][y] == NAUGHT)
 				SDL_RenderCopy(renderer, naught, NULL, &drawRect);
+		}
+
+		drawRect.x = 0;
+		drawRect.y = 700;
+		drawRect.h = 77;
+		drawRect.w = 294;
+		SDL_RenderCopy(renderer, exitGame, NULL, &drawRect);
+
+		if (checkForWin(opponent))
+		{
+			//Ai win text to screen
+			drawRect.x = 225;
+			drawRect.y = 50;
+			drawRect.h = 89;
+			drawRect.w = 587;
+			SDL_RenderCopy(renderer, computerWin, NULL, &drawRect);
+
+			//Play again text to screen
+			drawRect.x = 50;
+			drawRect.y = 400;
+			drawRect.h = 91;
+			drawRect.w = 959;
+			SDL_RenderCopy(renderer, playAgain, NULL, &drawRect);
+
+		}
+		if (checkForWin(player))
+		{
+			//Computer win text to screen
+			drawRect.x = 250;
+			drawRect.y = 50;
+			drawRect.h = 91;
+			drawRect.w = 479;
+			SDL_RenderCopy(renderer, playerWin, NULL, &drawRect);
+
+			//Play again text to screen
+			drawRect.x = 50;
+			drawRect.y = 400;
+			drawRect.h = 91;
+			drawRect.w = 959;
+			SDL_RenderCopy(renderer, playAgain, NULL, &drawRect);
+		}
+		if (!checkIfAnyPlacesFree())
+		{
+			drawRect.x = 375;
+			drawRect.y = 50;
+			drawRect.h = 72;
+			drawRect.w = 234;
+			SDL_RenderCopy(renderer, drawGame, NULL, &drawRect);
+
+			//Play again text to screen
+			drawRect.x = 50;
+			drawRect.y = 400;
+			drawRect.h = 91;
+			drawRect.w = 959;
+			SDL_RenderCopy(renderer, playAgain, NULL, &drawRect);
 		}
 	}
 }

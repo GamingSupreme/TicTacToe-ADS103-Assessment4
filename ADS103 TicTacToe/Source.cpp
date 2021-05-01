@@ -40,7 +40,7 @@ int main(int argc, char** arrgv)
 
 	GameBoard gameBoard(renderer);
 	TitleScreen titleScreen(renderer);
-	int gameState = 1;
+	int gameState = 2;
 
 	bool quit = false;
 	//Game Loop incoming

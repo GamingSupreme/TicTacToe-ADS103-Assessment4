@@ -63,7 +63,7 @@ int TitleScreen::checkForClick(SDL_Event& event)
 		getTileXYBasedOnPixlXY(event.button.x, event.button.y, tileX, tileY);
 		if (tileX != -1 && tileY != -1)
 		{
-			int gameState = 2;
+			gameState = 2;
 			//is a valid move, try set it here
 			return gameState;
 		}
