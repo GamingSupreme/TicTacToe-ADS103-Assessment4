@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include "GameBoard.h"
 #include "TitleScreen.h"
+#include "PlayerVsPlayer.h"
 
 using namespace std;
 
@@ -40,7 +41,9 @@ int main(int argc, char** arrgv)
 
 	GameBoard gameBoard(renderer);
 	TitleScreen titleScreen(renderer);
+	PlayerVsPlayer playerVsPlayer(renderer);
 	int gameState = 1;
+	int playerTurn = 1;
 
 	bool quit = false;
 	//Game Loop incoming
@@ -86,6 +89,7 @@ int main(int argc, char** arrgv)
 					}
 					if (e.key.keysym.scancode == SDL_SCANCODE_X)
 					{
+						gameBoard.clearBoard();
 						gameBoard.clearScreen();
 						titleScreen.draw();
 						gameState = 1;
@@ -98,6 +102,52 @@ int main(int argc, char** arrgv)
 					if (aiMove.row != -1 && aiMove.col != -1)
 					{
 						gameBoard.setTile(gameBoard.opponent, aiMove.row, aiMove.col);
+					}
+				}
+			}
+		}
+
+		else if (gameState == 3)
+		{
+			while (SDL_PollEvent(&e) != 0)
+			{
+				//user clicks close button
+				if (e.type == SDL_QUIT)
+					quit = true;
+				if (e.type == SDL_KEYDOWN)
+				{
+					if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+					{
+						quit = true;
+					}
+					if (e.key.keysym.scancode == SDL_SCANCODE_RETURN)
+					{
+						playerVsPlayer.clearBoard();
+						playerTurn = 1;
+					}
+					if (e.key.keysym.scancode == SDL_SCANCODE_X)
+					{
+						playerVsPlayer.clearScreen();
+						titleScreen.draw();
+						gameState = 1;
+					}
+				}
+
+				if (playerTurn == 1)
+				{
+					playerVsPlayer.checkForClick(e, PlayerVsPlayer::CROSS);
+					if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
+					{
+						playerTurn = 2;
+					}
+				}
+
+				else if (playerTurn == 2)
+				{
+					playerVsPlayer.checkForClick(e, PlayerVsPlayer::NAUGHT);
+					if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
+					{
+						playerTurn = 1;
 					}
 				}
 			}
@@ -118,6 +168,12 @@ int main(int argc, char** arrgv)
 		{
 			gameBoard.clearScreen();
 			gameBoard.draw();
+		}
+
+		if (gameState == 3)
+		{
+			playerVsPlayer.clearScreen();
+			playerVsPlayer.draw();
 		}
 
 		//swaps the buffers

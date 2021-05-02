@@ -6,11 +6,14 @@ TitleScreen::TitleScreen(SDL_Renderer* renderer)
 
 	title = IMG_LoadTexture(renderer, "assets/Title.png");
 	playervsai = IMG_LoadTexture(renderer, "assets/PlayerVSAi.png");
+	playerVSplayer = IMG_LoadTexture(renderer, "assets/PlayerVsPlayer.png");
 }
 
 TitleScreen::~TitleScreen()
 {
 	SDL_DestroyTexture(title);
+	SDL_DestroyTexture(playervsai);
+	SDL_DestroyTexture(playerVSplayer);
 }
 
 void TitleScreen::update()
@@ -32,6 +35,12 @@ void TitleScreen::draw()
 	drawRect.h = 91;
 	SDL_RenderCopy(renderer, playervsai, NULL, &drawRect);
 
+	drawRect.x = playerVsPX;
+	drawRect.y = playerVsPY;
+	drawRect.w = 634;
+	drawRect.h = 91;
+	SDL_RenderCopy(renderer, playerVSplayer, NULL, &drawRect);
+
 }
 
 void TitleScreen::getTileXYBasedOnPixlXY(int pixelX, int pixelY, int& tileX, int& tileY)
@@ -52,6 +61,11 @@ void TitleScreen::getTileXYBasedOnPixlXY(int pixelX, int pixelY, int& tileX, int
 	//divide pixel values by tilesize to get board index values
 	tileX = pixelX / 466;
 	tileY = pixelY / 91;
+
+	if (tileX == (pixelX / 466) && tileY == (pixelY / 91))
+	{
+		gameState = 2;
+	}
 }
 
 int TitleScreen::checkForClick(SDL_Event& event)
@@ -63,7 +77,6 @@ int TitleScreen::checkForClick(SDL_Event& event)
 		getTileXYBasedOnPixlXY(event.button.x, event.button.y, tileX, tileY);
 		if (tileX != -1 && tileY != -1)
 		{
-			gameState = 2;
 			//is a valid move, try set it here
 			return gameState;
 		}
@@ -72,6 +85,8 @@ int TitleScreen::checkForClick(SDL_Event& event)
 
 	return 1;
 }
+
+
 
 void TitleScreen::clearScreen()
 {
