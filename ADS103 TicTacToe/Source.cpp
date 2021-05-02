@@ -4,6 +4,7 @@
 #include "GameBoard.h"
 #include "TitleScreen.h"
 #include "PlayerVsPlayer.h"
+#include "Buttons.h"
 
 using namespace std;
 
@@ -42,6 +43,8 @@ int main(int argc, char** arrgv)
 	GameBoard gameBoard(renderer);
 	TitleScreen titleScreen(renderer);
 	PlayerVsPlayer playerVsPlayer(renderer);
+	Buttons buttonsControl(renderer);
+
 	int gameState = 1;
 	int playerTurn = 1;
 
@@ -127,6 +130,7 @@ int main(int argc, char** arrgv)
 					}
 					if (e.key.keysym.scancode == SDL_SCANCODE_X)
 					{
+						playerVsPlayer.clearBoard();
 						playerVsPlayer.clearScreen();
 						titleScreen.draw();
 						gameState = 1;
@@ -159,22 +163,16 @@ int main(int argc, char** arrgv)
 		
 		titleScreen.draw();
 
-		/*if (gameState == 1)
+		while (buttonsControl.playerVsAiButton(e) && e.button.button == SDL_BUTTON_LEFT)
 		{
-			gameState = titleScreen.checkForClick(e);
-		}*/
-
-		if (gameState == 2)
-		{
-			gameBoard.clearScreen();
-			gameBoard.draw();
+			gameBoard.update();
 		}
+
+		//if (gameState == 2)
+		//	gameBoard.update();
 
 		if (gameState == 3)
-		{
-			playerVsPlayer.clearScreen();
-			playerVsPlayer.draw();
-		}
+			playerVsPlayer.update();
 
 		//swaps the buffers
 		SDL_RenderPresent(renderer);

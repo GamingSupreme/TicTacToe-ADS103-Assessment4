@@ -35,6 +35,7 @@ public:
 	bool checkForWin(char type);
 	bool checkIfAnyPlacesFree();
 	void clearScreen();
+	void update();
 
 	void draw();
 };

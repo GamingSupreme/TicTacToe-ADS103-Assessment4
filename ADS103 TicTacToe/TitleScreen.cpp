@@ -46,26 +46,42 @@ void TitleScreen::draw()
 void TitleScreen::getTileXYBasedOnPixlXY(int pixelX, int pixelY, int& tileX, int& tileY)
 {
 	//if  pixel is not on board
-	if (pixelX < playerAiX || pixelX > playerAiX + 466
-		|| pixelY < playerAiY || pixelY > playerAiY + 91)
-	{
-		tileX = -1;
-		tileY = -1;
-		return; //bail not a valid move
-	}
+	//if ((pixelX < playerAiX || pixelX > playerAiX + 466
+	//	|| pixelY < playerAiY || pixelY > playerAiY + 91)
+	//	
+	//	&&
+	//	
+	//	pixelX < playerVsPX || pixelX > playerVsPX + 634
+	//	|| pixelY < playerVsPY || pixelY > playerVsPY + 91)
+	//{
+	//	tileX = -1;
+	//	tileY = -1;
+	//	return; //bail not a valid move
+	//}
 
-	//simplify math to ignore board offset
-	pixelX = pixelX - playerAiX;
-	pixelY = pixelY - playerAiY;
+	////simplify math to ignore board offset
+	//pixelX = pixelX - playerAiX;
+	//pixelY = pixelY - playerAiY;
 
-	//divide pixel values by tilesize to get board index values
-	tileX = pixelX / 466;
-	tileY = pixelY / 91;
+	//int pixelX2 = pixelX - playerVsPX;
+	//int pixelY2 = pixelY - playerVsPY;
 
-	if (tileX == (pixelX / 466) && tileY == (pixelY / 91))
-	{
-		gameState = 2;
-	}
+	////divide pixel values by tilesize to get board index values
+	//tileX = pixelX / 466;
+	//tileY = pixelY / 91;
+
+	//int tileX2 = pixelX / 634;
+	//int tileY2 = pixelY / 91;
+
+	//if (tileX == (pixelX / 466) && tileY == (pixelY / 91))
+	//{
+	//	gameState = 2;
+	//}
+
+	//if (tileX2 == (pixelX2 / 634) && tileY2 == (pixelY2 / 91))
+	//{
+	//	gameState = 3;
+	//}
 }
 
 int TitleScreen::checkForClick(SDL_Event& event)

@@ -450,3 +450,9 @@ Move GameBoard::findBestMove(char type)
 
 	return bestMove;
 }
+
+void GameBoard::update()
+{
+	clearScreen();
+	draw();
+}

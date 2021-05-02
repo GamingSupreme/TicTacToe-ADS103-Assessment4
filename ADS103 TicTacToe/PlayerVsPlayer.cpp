@@ -141,6 +141,12 @@ void PlayerVsPlayer::clearScreen()
 	SDL_RenderClear(renderer);
 }
 
+void PlayerVsPlayer::update()
+{
+	clearScreen();
+	draw();
+}
+
 void PlayerVsPlayer::draw()
 {
 	SDL_Rect drawRect;

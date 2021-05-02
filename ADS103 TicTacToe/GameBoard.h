@@ -51,6 +51,8 @@ public:
 	//minimax using alpha beta pruning
 	int minimax(int depth, bool isMax, int alpha, int beta);
 	Move findBestMove(char type);
+	
+	void update();
 
 };
 
