@@ -146,15 +146,19 @@
     <ClCompile Include="GameBoard.cpp" />
     <ClCompile Include="PlayerVsPlayer.cpp" />
     <ClCompile Include="res_path.cpp" />
+    <ClCompile Include="ScoreController.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="TitleScreen.cpp" />
+    <ClCompile Include="WinsScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buttons.h" />
     <ClInclude Include="GameBoard.h" />
     <ClInclude Include="PlayerVsPlayer.h" />
     <ClInclude Include="res_path.h" />
+    <ClInclude Include="ScoreController.h" />
     <ClInclude Include="TitleScreen.h" />
+    <ClInclude Include="WinsScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,9 +17,8 @@ public:
 	int playerVsPY = 350, playerVsPX = 300;
 
 	SDL_Renderer* renderer;
-	SDL_Texture* playervsai, * playerVSplayer;
 
-	int playerVsPlayerButton();
+	int playerVsPlayerButton(SDL_Event& event);
 	bool playerVsAiButton(SDL_Event& event);
 	Buttons(SDL_Renderer* renderer);
 	~Buttons();

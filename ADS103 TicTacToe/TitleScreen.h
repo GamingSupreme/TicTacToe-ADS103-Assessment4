@@ -26,8 +26,6 @@ public:
 	void update();
 	void draw();
 
-	void getTileXYBasedOnPixlXY(int pixelX, int pixelY, int& tileX, int& tileY);
-	int checkForClick(SDL_Event& event);
 	void clearScreen();
 };
 

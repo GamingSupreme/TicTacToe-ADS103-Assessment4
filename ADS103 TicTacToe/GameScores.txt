@@ -1,0 +1,6 @@
+0 //TotalAiGamesPlayed
+0 //TotalPvPGamesPlayed
+0 //TotalAiGamesLost
+0 //TotalPvPGamesLost
+0 //TotalAiGamesWon
+0 //TotalPvPGamesWon

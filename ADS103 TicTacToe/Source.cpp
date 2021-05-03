@@ -69,7 +69,6 @@ int main(int argc, char** arrgv)
 					}
 				}
 			}
-			gameState = titleScreen.checkForClick(e);
 
 
 		}
@@ -160,16 +159,29 @@ int main(int argc, char** arrgv)
 
 		SDL_SetRenderDrawColor(renderer, 170, 170, 170, 255); //rgba(0-255) //Use paint to change color of background, the first three numbers colorate to red green and blue
 		SDL_RenderClear(renderer);
-		
+
 		titleScreen.draw();
 
-		while (buttonsControl.playerVsAiButton(e) && e.button.button == SDL_BUTTON_LEFT)
+		if (gameState == 1)
 		{
-			gameBoard.update();
+			if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
+			{
+				if (buttonsControl.playerVsAiButton(e))
+				{
+					gameState = 2;
+					gameBoard.update();
+				}
+				else if (buttonsControl.playerVsPlayerButton(e))
+				{
+					gameState = 3;
+					playerVsPlayer.update();
+				}
+			}
 		}
+			
 
-		//if (gameState == 2)
-		//	gameBoard.update();
+		if (gameState == 2)
+			gameBoard.update();
 
 		if (gameState == 3)
 			playerVsPlayer.update();
