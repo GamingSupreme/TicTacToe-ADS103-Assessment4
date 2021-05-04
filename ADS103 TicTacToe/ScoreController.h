@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include <fstream>
 #include <sstream>
 #include <SDL.h>
@@ -17,21 +18,15 @@ public:
 	SDL_Renderer* renderer;
 
 	ScoreController(SDL_Renderer* renderer);
-
-	int TotalAiGamesPlayed(ifstream readfile, ofstream writefile);
-	int TotalPvPGamesPlayed(ifstream readfile, ofstream writefile);
-	int TotalAiGamesLost(ifstream readfile, ofstream writefile);
-	int TotalPvPGamesLost(ifstream readfile, ofstream writefile);
-	int TotalAiGamesWon(ifstream readfile, ofstream writefile);
-	int TotalPvPGamesWon(/*ifstream readfile, ofstream writefile*/);
 	
-	void PlusOneAiGamePlayed(ifstream readfile, ofstream writefile);
-	void PlusOnePvPGamePlayed(ifstream readfile, ofstream writefile);
-	void PlusOneAiGameLost(ifstream readfile, ofstream writefile);
-	void PlusOnePvPGameLost(ifstream readfile, ofstream writefile);
-	void PlusOneAiGameWon(ifstream readfile, ofstream writefile);
-	void PlusOnePvPGameWon(ifstream readfile, ofstream writefile);
+	void PlusOneAiGamePlayed(vector<int> &NumbersVec); //VECTOR 0
+	void PlusOnePvPGamePlayed(vector<int> &NumbersVec); //VECTOR 1
+	void PlusOneAiGameLost(vector<int> &NumbersVec); //VECTOR 2
+	void PlusOnePvPGameLost(vector<int> &NumbersVec); //VECTOR 3
+	void PlusOneAiGameWon(vector<int> &NumbersVec); // VECTOR 4
+	void PlusOnePvPGameWon(vector<int> &NumbersVec); //VECTOR 5
 
-	void updateArr(int arr[]);
+	void onStartUpdateArr(vector<int> &NumbersVec);
+	void updateOnClose(vector<int> &NumbersVec);
 };
 

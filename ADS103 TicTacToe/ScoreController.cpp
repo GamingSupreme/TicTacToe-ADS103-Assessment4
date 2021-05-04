@@ -1,162 +1,41 @@
 #include "ScoreController.h"
 
-int ScoreController::TotalAiGamesPlayed(ifstream readfile, ofstream writefile)
-{
-	readfile.open("GameScores.txt");
-	string StringNumber = "";
-
-	int line_num = 0;
-	while (line_num != 1 && getline(readfile, StringNumber))
-	{
-		++line_num;
-	}
-
-	int TheNumber;
-	TheNumber = stoi(StringNumber);
-
-	if (line_num == 1)
-	{
-		return TheNumber;
-		readfile.close();
-	}
-}
-
 ScoreController::ScoreController(SDL_Renderer* renderer)
 {
 	this->renderer = renderer;
 }
 
-int ScoreController::TotalPvPGamesPlayed(ifstream readfile, ofstream writefile)
+void ScoreController::PlusOneAiGamePlayed(vector<int> &NumbersVec)
 {
-	readfile.open("GameScores.txt");
-	string StringNumber = "";
-
-	int line_num = 0;
-	while (line_num != 2 && getline(readfile, StringNumber))
-	{
-		++line_num;
-	}
-
-	int TheNumber;
-	TheNumber = stoi(StringNumber);
-
-	if (line_num == 2)
-	{
-		return TheNumber;
-		readfile.close();
-	}
+	NumbersVec[0]++;
 }
 
-int ScoreController::TotalAiGamesLost(ifstream readfile, ofstream writefile)
+void ScoreController::PlusOnePvPGamePlayed(vector<int> &NumbersVec)
 {
-	readfile.open("GameScores.txt");
-	string StringNumber = "";
-
-	int line_num = 0;
-	while (line_num != 3 && getline(readfile, StringNumber))
-	{
-		++line_num;
-	}
-
-	int TheNumber;
-	TheNumber = stoi(StringNumber);
-
-	if (line_num == 3)
-	{
-		return TheNumber;
-		readfile.close();
-	}
+	NumbersVec[1]++;
 }
 
-int ScoreController::TotalPvPGamesLost(ifstream readfile, ofstream writefile)
+void ScoreController::PlusOneAiGameLost(vector<int> &NumbersVec)
 {
-	readfile.open("GameScores.txt");
-	string StringNumber = "";
-
-	int line_num = 0;
-	while (line_num != 4 && getline(readfile, StringNumber))
-	{
-		++line_num;
-	}
-
-	int TheNumber;
-	TheNumber = stoi(StringNumber);
-
-	if (line_num == 4)
-	{
-		return TheNumber;
-		readfile.close();
-	}
+	NumbersVec[2]++;
 }
 
-int ScoreController::TotalAiGamesWon(ifstream readfile, ofstream writefile)
+void ScoreController::PlusOnePvPGameLost(vector<int> &NumbersVec)
 {
-	readfile.open("GameScores.txt");
-	string StringNumber = "";
-
-	int line_num = 0;
-	while (line_num != 5 && getline(readfile, StringNumber))
-	{
-		++line_num;
-	}
-
-	int TheNumber;
-	TheNumber = stoi(StringNumber);
-
-	if (line_num == 5)
-	{
-		return TheNumber;
-		readfile.close();
-	}
+	NumbersVec[3]++;
 }
 
-int ScoreController::TotalPvPGamesWon(/*ifstream readfile, ofstream writefile*/)
+void ScoreController::PlusOneAiGameWon(vector<int> &NumbersVec)
 {
-	ifstream readfile;
-	readfile.open("GameScores.txt");
-	string StringNumber = "";
-
-	int line_num = 0;
-	while (line_num != 6 && getline(readfile, StringNumber))
-	{
-		++line_num;
-	}
-
-	int TheNumber;
-	TheNumber = stoi(StringNumber);
-
-	if (line_num == 6)
-	{
-		return TheNumber;
-		readfile.close();
-	}
+	NumbersVec[4]++;
 }
 
-void ScoreController::PlusOneAiGamePlayed(ifstream readfile, ofstream writefile)
+void ScoreController::PlusOnePvPGameWon(vector<int> &NumbersVec)
 {
+	NumbersVec[5]++;
 }
 
-void ScoreController::PlusOnePvPGamePlayed(ifstream readfile, ofstream writefile)
-{
-}
-
-void ScoreController::PlusOneAiGameLost(ifstream readfile, ofstream writefile)
-{
-}
-
-void ScoreController::PlusOnePvPGameLost(ifstream readfile, ofstream writefile)
-{
-}
-
-void ScoreController::PlusOneAiGameWon(ifstream readfile, ofstream writefile)
-{
-}
-
-void ScoreController::PlusOnePvPGameWon(ifstream readfile, ofstream writefile)
-{
-}
-
-void ScoreController::updateArr(int arr[])
+void ScoreController::onStartUpdateArr(vector<int> &NumbersVec)
 {
 	ifstream readfile;
 	readfile.open("GameScores.txt");
@@ -177,7 +56,17 @@ void ScoreController::updateArr(int arr[])
 
 		if (line_num == i)
 		{
-			arr[i] = TheNumber;
+			NumbersVec.push_back(TheNumber);
 		}
+	}
+}
+
+void ScoreController::updateOnClose(vector<int>& NumbersVec)
+{
+	ofstream writefile;
+	writefile.open("GameScores.txt");
+	for (int i = 0; i < NumbersVec.size(); i++)
+	{
+		writefile << NumbersVec[i] << endl;
 	}
 }

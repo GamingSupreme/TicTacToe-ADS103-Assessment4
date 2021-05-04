@@ -52,9 +52,9 @@ int main(int argc, char** arrgv)
 	ScoreController scores(renderer);
 
 	int gameState = 1;
-	int NumbersArr[5];
-	vector<int> Numbers;
+	vector<int> NumbersV;
 	int playerTurn = 1;
+	bool gameStarted = true;
 
 	readfile.open("GameScores.txt");
 
@@ -75,20 +75,17 @@ int main(int argc, char** arrgv)
 				{
 					if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 					{
-						readfile.close();
 						quit = true;
-					}
-					if (e.key.keysym.scancode == SDL_SCANCODE_Z)
-					{
-						for (int i = 0; i < 6; i++)
-						{
-							cout << NumbersArr[i] << endl;
-						}
 					}
 					if (e.key.keysym.scancode == SDL_SCANCODE_X)
 					{
-						scores.updateArr(NumbersArr);
+						scores.PlusOneAiGameLost(NumbersV);
 					}
+				}
+				if (gameStarted == true)
+				{
+					scores.onStartUpdateArr(NumbersV);
+					gameStarted = false;
 				}
 			}
 
@@ -155,7 +152,6 @@ int main(int argc, char** arrgv)
 						playerVsPlayer.clearScreen();
 						titleScreen.draw();
 						gameState = 1;
-						scores.updateArr(NumbersArr);
 					}
 				}
 
@@ -191,17 +187,18 @@ int main(int argc, char** arrgv)
 			{
 				if (buttonsControl.playerVsAiButton(e))
 				{
+					scores.PlusOneAiGamePlayed(NumbersV);
 					gameState = 2;
 					gameBoard.update();
 				}
 				else if (buttonsControl.playerVsPlayerButton(e))
 				{
+					scores.PlusOnePvPGamePlayed(NumbersV);
 					gameState = 3;
 					playerVsPlayer.update();
 				}
 			}
 		}
-			
 
 		if (gameState == 2)
 			gameBoard.update();
@@ -211,8 +208,8 @@ int main(int argc, char** arrgv)
 
 		//swaps the buffers
 		SDL_RenderPresent(renderer);
-
 	}
 
+	scores.updateOnClose(NumbersV);
 	return 0;
 }
