@@ -49,12 +49,13 @@ int main(int argc, char** arrgv)
 	TitleScreen titleScreen(renderer);
 	PlayerVsPlayer playerVsPlayer(renderer);
 	Buttons buttonsControl(renderer);
-	ScoreController scores(renderer);
+	ScoreController scores;
 
 	int gameState = 1;
 	vector<int> NumbersV;
 	int playerTurn = 1;
 	bool gameStarted = true;
+	bool gamePlayed = false;
 
 	readfile.open("GameScores.txt");
 
@@ -77,14 +78,11 @@ int main(int argc, char** arrgv)
 					{
 						quit = true;
 					}
-					if (e.key.keysym.scancode == SDL_SCANCODE_X)
-					{
-						scores.PlusOneAiGameLost(NumbersV);
-					}
+
 				}
 				if (gameStarted == true)
 				{
-					scores.onStartUpdateArr(NumbersV);
+					scores.onStartUpdateArr();
 					gameStarted = false;
 				}
 			}
@@ -106,7 +104,9 @@ int main(int argc, char** arrgv)
 					}
 					if (e.key.keysym.scancode == SDL_SCANCODE_RETURN)
 					{
+						scores.PlusOneAiGamePlayed();
 						gameBoard.clearBoard();
+						gamePlayed = false;
 					}
 					if (e.key.keysym.scancode == SDL_SCANCODE_X)
 					{
@@ -114,6 +114,10 @@ int main(int argc, char** arrgv)
 						gameBoard.clearScreen();
 						titleScreen.draw();
 						gameState = 1;
+					}
+					if (e.key.keysym.scancode == SDL_SCANCODE_P)
+					{
+						cout << scores.NumbersV[2];
 					}
 				}
 
@@ -143,6 +147,7 @@ int main(int argc, char** arrgv)
 					}
 					if (e.key.keysym.scancode == SDL_SCANCODE_RETURN)
 					{
+						scores.PlusOneAiGamePlayed();
 						playerVsPlayer.clearBoard();
 						playerTurn = 1;
 					}
@@ -187,13 +192,13 @@ int main(int argc, char** arrgv)
 			{
 				if (buttonsControl.playerVsAiButton(e))
 				{
-					scores.PlusOneAiGamePlayed(NumbersV);
+					scores.PlusOneAiGamePlayed();
 					gameState = 2;
 					gameBoard.update();
 				}
 				else if (buttonsControl.playerVsPlayerButton(e))
 				{
-					scores.PlusOnePvPGamePlayed(NumbersV);
+					scores.PlusOnePvPGamePlayed();
 					gameState = 3;
 					playerVsPlayer.update();
 				}
@@ -201,7 +206,9 @@ int main(int argc, char** arrgv)
 		}
 
 		if (gameState == 2)
+		{
 			gameBoard.update();
+		}
 
 		if (gameState == 3)
 			playerVsPlayer.update();
@@ -210,6 +217,6 @@ int main(int argc, char** arrgv)
 		SDL_RenderPresent(renderer);
 	}
 
-	scores.updateOnClose(NumbersV);
+	scores.updateOnClose();
 	return 0;
 }

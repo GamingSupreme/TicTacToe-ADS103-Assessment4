@@ -1,5 +1,5 @@
 #include "GameBoard.h"
-
+#include "ScoreController.h"
 char GameBoard::BLANK = '-';
 char GameBoard::CROSS = 'X';
 char GameBoard::NAUGHT = 'O';
@@ -55,7 +55,6 @@ bool GameBoard::setTile(char type, int x, int y)
 			return true;
 		}
 	}
-
 
 	return false;
 }
@@ -142,6 +141,11 @@ void GameBoard::clearScreen()
 	SDL_RenderClear(renderer);
 }
 
+int GameBoard::getGamesLost()
+{
+	return gamesLost;
+}
+
 void GameBoard::draw()
 {
 	SDL_Rect drawRect;
@@ -184,10 +188,12 @@ void GameBoard::draw()
 			drawRect.h = 91;
 			drawRect.w = 959;
 			SDL_RenderCopy(renderer, playAgain, NULL, &drawRect);
+			
 
 		}
 		if (checkForWin(player))
 		{
+			//PlusOneAiGameWon();
 			//Computer win text to screen
 			drawRect.x = 250;
 			drawRect.y = 50;
@@ -226,9 +232,13 @@ void GameBoard::draw()
 int GameBoard::evaluate()
 {
 	if (checkForWin(player))
+	{
 		return 10;
+	}
 	if (checkForWin(opponent))
+	{
 		return -10;
+	}
 
 	return 0; //no winner
 }

@@ -6,6 +6,7 @@
 #include <cmath>
 #include <algorithm>
 #include "res_path.h"
+#include "ScoreController.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ struct Move
 	int row, col;
 };
 
-class GameBoard
+class GameBoard: public ScoreController
 {
 public:
 	static char BLANK;
@@ -31,6 +32,7 @@ public:
 	char player = CROSS, opponent = NAUGHT;
 
 	int minimaxCount = 0;
+	int gamesLost = 0;
 
 	GameBoard(SDL_Renderer* renderer);
 	~GameBoard();
@@ -41,6 +43,7 @@ public:
 	bool checkForWin(char type);
 	bool checkIfAnyPlacesFree();
 	void clearScreen();
+	int getGamesLost();
 
 	void draw();
 

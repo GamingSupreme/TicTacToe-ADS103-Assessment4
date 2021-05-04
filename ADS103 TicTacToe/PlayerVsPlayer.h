@@ -6,10 +6,11 @@
 #include <cmath>
 #include <algorithm>
 #include "res_path.h"
+#include "ScoreController.h"
 
 using namespace std;
 
-class PlayerVsPlayer
+class PlayerVsPlayer: public ScoreController
 {
 public:
 	static char BLANK;

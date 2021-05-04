@@ -1,41 +1,43 @@
 #include "ScoreController.h"
 
-ScoreController::ScoreController(SDL_Renderer* renderer)
+ScoreController::ScoreController()
 {
-	this->renderer = renderer;
+
 }
 
-void ScoreController::PlusOneAiGamePlayed(vector<int> &NumbersVec)
+void ScoreController::PlusOneAiGamePlayed()
 {
-	NumbersVec[0]++;
+	NumbersV[0]++;
 }
 
-void ScoreController::PlusOnePvPGamePlayed(vector<int> &NumbersVec)
+void ScoreController::PlusOnePvPGamePlayed()
 {
-	NumbersVec[1]++;
+	NumbersV[1]++;
 }
 
-void ScoreController::PlusOneAiGameLost(vector<int> &NumbersVec)
+void ScoreController::PlusOneAiGameLost()
 {
-	NumbersVec[2]++;
+	int temp = NumbersV[2];
+	NumbersV[2] = (temp + 1);
+	//NumbersV[2]++;
 }
 
-void ScoreController::PlusOnePvPGameLost(vector<int> &NumbersVec)
+void ScoreController::PlusOnePvPGameLost()
 {
-	NumbersVec[3]++;
+	NumbersV[3]++;
 }
 
-void ScoreController::PlusOneAiGameWon(vector<int> &NumbersVec)
+void ScoreController::PlusOneAiGameWon()
 {
-	NumbersVec[4]++;
+	NumbersV[4]++;
 }
 
-void ScoreController::PlusOnePvPGameWon(vector<int> &NumbersVec)
+void ScoreController::PlusOnePvPGameWon()
 {
-	NumbersVec[5]++;
+	NumbersV[5]++;
 }
 
-void ScoreController::onStartUpdateArr(vector<int> &NumbersVec)
+void ScoreController::onStartUpdateArr()
 {
 	ifstream readfile;
 	readfile.open("GameScores.txt");
@@ -56,17 +58,17 @@ void ScoreController::onStartUpdateArr(vector<int> &NumbersVec)
 
 		if (line_num == i)
 		{
-			NumbersVec.push_back(TheNumber);
+			NumbersV.push_back(TheNumber);
 		}
 	}
 }
 
-void ScoreController::updateOnClose(vector<int>& NumbersVec)
+void ScoreController::updateOnClose()
 {
 	ofstream writefile;
 	writefile.open("GameScores.txt");
-	for (int i = 0; i < NumbersVec.size(); i++)
+	for (int i = 0; i < NumbersV.size(); i++)
 	{
-		writefile << NumbersVec[i] << endl;
+		writefile << NumbersV[i] << endl;
 	}
 }

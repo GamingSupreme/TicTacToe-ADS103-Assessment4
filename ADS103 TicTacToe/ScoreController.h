@@ -15,18 +15,20 @@ using namespace std;
 class ScoreController
 {
 public:
+	vector<int> NumbersV;
+
 	SDL_Renderer* renderer;
 
-	ScoreController(SDL_Renderer* renderer);
+	ScoreController();
 	
-	void PlusOneAiGamePlayed(vector<int> &NumbersVec); //VECTOR 0
-	void PlusOnePvPGamePlayed(vector<int> &NumbersVec); //VECTOR 1
-	void PlusOneAiGameLost(vector<int> &NumbersVec); //VECTOR 2
-	void PlusOnePvPGameLost(vector<int> &NumbersVec); //VECTOR 3
-	void PlusOneAiGameWon(vector<int> &NumbersVec); // VECTOR 4
-	void PlusOnePvPGameWon(vector<int> &NumbersVec); //VECTOR 5
+	void PlusOneAiGamePlayed(); //VECTOR 0
+	void PlusOnePvPGamePlayed(); //VECTOR 1
+	void PlusOneAiGameLost(); //VECTOR 2
+	void PlusOnePvPGameLost(); //VECTOR 3
+	void PlusOneAiGameWon(); // VECTOR 4
+	void PlusOnePvPGameWon(); //VECTOR 5
 
-	void onStartUpdateArr(vector<int> &NumbersVec);
-	void updateOnClose(vector<int> &NumbersVec);
+	void onStartUpdateArr();
+	void updateOnClose();
 };
 
