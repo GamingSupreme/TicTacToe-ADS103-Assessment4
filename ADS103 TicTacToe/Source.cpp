@@ -1,10 +1,13 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <SDL.h>
+#include <vector>
 #include "GameBoard.h"
 #include "TitleScreen.h"
 #include "PlayerVsPlayer.h"
 #include "Buttons.h"
+#include "ScoreController.h"
 
 using namespace std;
 
@@ -40,13 +43,20 @@ int main(int argc, char** arrgv)
 		return 1;
 	}
 
+	ifstream readfile;
+	ofstream Writefile;
 	GameBoard gameBoard(renderer);
 	TitleScreen titleScreen(renderer);
 	PlayerVsPlayer playerVsPlayer(renderer);
 	Buttons buttonsControl(renderer);
+	ScoreController scores(renderer);
 
 	int gameState = 1;
+	int NumbersArr[5];
+	vector<int> Numbers;
 	int playerTurn = 1;
+
+	readfile.open("GameScores.txt");
 
 	bool quit = false;
 	//Game Loop incoming
@@ -65,7 +75,19 @@ int main(int argc, char** arrgv)
 				{
 					if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
 					{
+						readfile.close();
 						quit = true;
+					}
+					if (e.key.keysym.scancode == SDL_SCANCODE_Z)
+					{
+						for (int i = 0; i < 6; i++)
+						{
+							cout << NumbersArr[i] << endl;
+						}
+					}
+					if (e.key.keysym.scancode == SDL_SCANCODE_X)
+					{
+						scores.updateArr(NumbersArr);
 					}
 				}
 			}
@@ -133,6 +155,7 @@ int main(int argc, char** arrgv)
 						playerVsPlayer.clearScreen();
 						titleScreen.draw();
 						gameState = 1;
+						scores.updateArr(NumbersArr);
 					}
 				}
 

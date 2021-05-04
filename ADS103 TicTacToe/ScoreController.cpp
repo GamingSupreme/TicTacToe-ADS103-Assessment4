@@ -21,6 +21,11 @@ int ScoreController::TotalAiGamesPlayed(ifstream readfile, ofstream writefile)
 	}
 }
 
+ScoreController::ScoreController(SDL_Renderer* renderer)
+{
+	this->renderer = renderer;
+}
+
 int ScoreController::TotalPvPGamesPlayed(ifstream readfile, ofstream writefile)
 {
 	readfile.open("GameScores.txt");
@@ -105,8 +110,9 @@ int ScoreController::TotalAiGamesWon(ifstream readfile, ofstream writefile)
 	}
 }
 
-int ScoreController::TotalPvPGamesWon(ifstream readfile, ofstream writefile)
+int ScoreController::TotalPvPGamesWon(/*ifstream readfile, ofstream writefile*/)
 {
+	ifstream readfile;
 	readfile.open("GameScores.txt");
 	string StringNumber = "";
 
@@ -148,4 +154,30 @@ void ScoreController::PlusOneAiGameWon(ifstream readfile, ofstream writefile)
 
 void ScoreController::PlusOnePvPGameWon(ifstream readfile, ofstream writefile)
 {
+}
+
+void ScoreController::updateArr(int arr[])
+{
+	ifstream readfile;
+	readfile.open("GameScores.txt");
+	string StringNumber = "";
+
+	int line_num = -1;
+
+	for (int i = 0; i < 6; i++)
+	{
+		while (line_num != i && getline(readfile, StringNumber))
+		{
+			++line_num;
+		}
+
+		int TheNumber;
+		stringstream ss(StringNumber);
+		ss >> TheNumber;
+
+		if (line_num == i)
+		{
+			arr[i] = TheNumber;
+		}
+	}
 }

@@ -1,5 +1,10 @@
-﻿  Source.cpp
-  TitleScreen.cpp
-  WinsScreen.cpp
+﻿  ScoreController.cpp
+  Source.cpp
   Generating Code...
+C:\Users\joshu\Documents\Uni\Torrens\Uni Work\ADS algo\Assessnemt 4 TicTacToe\ADS103 TicTacToe\ScoreController.cpp(111): warning C4715: 'ScoreController::TotalAiGamesWon': not all control paths return a value
+C:\Users\joshu\Documents\Uni\Torrens\Uni Work\ADS algo\Assessnemt 4 TicTacToe\ADS103 TicTacToe\ScoreController.cpp(90): warning C4715: 'ScoreController::TotalPvPGamesLost': not all control paths return a value
+C:\Users\joshu\Documents\Uni\Torrens\Uni Work\ADS algo\Assessnemt 4 TicTacToe\ADS103 TicTacToe\ScoreController.cpp(48): warning C4715: 'ScoreController::TotalPvPGamesPlayed': not all control paths return a value
+C:\Users\joshu\Documents\Uni\Torrens\Uni Work\ADS algo\Assessnemt 4 TicTacToe\ADS103 TicTacToe\ScoreController.cpp(22): warning C4715: 'ScoreController::TotalAiGamesPlayed': not all control paths return a value
+C:\Users\joshu\Documents\Uni\Torrens\Uni Work\ADS algo\Assessnemt 4 TicTacToe\ADS103 TicTacToe\ScoreController.cpp(69): warning C4715: 'ScoreController::TotalAiGamesLost': not all control paths return a value
+C:\Users\joshu\Documents\Uni\Torrens\Uni Work\ADS algo\Assessnemt 4 TicTacToe\ADS103 TicTacToe\ScoreController.cpp(133): warning C4715: 'ScoreController::TotalPvPGamesWon': not all control paths return a value
   ADS103 TicTacToe.vcxproj -> C:\Users\joshu\Documents\Uni\Torrens\Uni Work\ADS algo\Assessnemt 4 TicTacToe\ADS103 TicTacToe\Debug\ADS103 TicTacToe.exe

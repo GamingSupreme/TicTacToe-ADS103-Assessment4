@@ -1,5 +1,6 @@
 #pragma once
 #include <fstream>
+#include <sstream>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <iostream>
@@ -13,12 +14,16 @@ using namespace std;
 class ScoreController
 {
 public:
+	SDL_Renderer* renderer;
+
+	ScoreController(SDL_Renderer* renderer);
+
 	int TotalAiGamesPlayed(ifstream readfile, ofstream writefile);
 	int TotalPvPGamesPlayed(ifstream readfile, ofstream writefile);
 	int TotalAiGamesLost(ifstream readfile, ofstream writefile);
 	int TotalPvPGamesLost(ifstream readfile, ofstream writefile);
 	int TotalAiGamesWon(ifstream readfile, ofstream writefile);
-	int TotalPvPGamesWon(ifstream readfile, ofstream writefile);
+	int TotalPvPGamesWon(/*ifstream readfile, ofstream writefile*/);
 	
 	void PlusOneAiGamePlayed(ifstream readfile, ofstream writefile);
 	void PlusOnePvPGamePlayed(ifstream readfile, ofstream writefile);
@@ -27,5 +32,6 @@ public:
 	void PlusOneAiGameWon(ifstream readfile, ofstream writefile);
 	void PlusOnePvPGameWon(ifstream readfile, ofstream writefile);
 
+	void updateArr(int arr[]);
 };
 
