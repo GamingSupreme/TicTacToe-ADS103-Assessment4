@@ -3,6 +3,7 @@
 #include <fstream>
 #include <SDL.h>
 #include <vector>
+#include <SDL_ttf.h>
 #include "GameBoard.h"
 #include "TitleScreen.h"
 #include "PlayerVsPlayer.h"
@@ -43,6 +44,17 @@ int main(int argc, char** arrgv)
 		system("pause");
 		return 1;
 	}
+
+	TTF_Init();
+
+	if (TTF_Init() != 0)
+	{
+		SDL_Quit();
+		cout << "sdl ttf did not initialise" << endl;
+		return 1;
+	}
+
+	
 
 	ifstream readfile;
 	ofstream Writefile;
@@ -256,8 +268,8 @@ int main(int argc, char** arrgv)
 
 		//swaps the buffers
 		SDL_RenderPresent(renderer);
-	}
 
+	}
 	gameBoard.updateOnClose();
 	return 0;
 }
