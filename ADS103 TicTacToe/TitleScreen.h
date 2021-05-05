@@ -16,9 +16,10 @@ public:
 	int titleY = 100, titleX = 300;
 	int playerAiY = 250, playerAiX = 300;
 	int playerVsPY = 350, playerVsPX = 300;
+	int statsScreenY = 450, statsScreenX = 300;
 
 	SDL_Renderer* renderer;
-	SDL_Texture* title, * playervsai, * playerVSplayer;
+	SDL_Texture* title, * playervsai, * playerVSplayer, * statsScreen;
 
 	TitleScreen(SDL_Renderer* renderer);
 	~TitleScreen();

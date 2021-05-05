@@ -7,6 +7,7 @@ TitleScreen::TitleScreen(SDL_Renderer* renderer)
 	title = IMG_LoadTexture(renderer, "assets/Title.png");
 	playervsai = IMG_LoadTexture(renderer, "assets/PlayerVSAi.png");
 	playerVSplayer = IMG_LoadTexture(renderer, "assets/PlayerVsPlayer.png");
+	statsScreen = IMG_LoadTexture(renderer, "assets/StatsScreen.png");
 }
 
 TitleScreen::~TitleScreen()
@@ -14,6 +15,7 @@ TitleScreen::~TitleScreen()
 	SDL_DestroyTexture(title);
 	SDL_DestroyTexture(playervsai);
 	SDL_DestroyTexture(playerVSplayer);
+	SDL_DestroyTexture(statsScreen);
 }
 
 void TitleScreen::update()
@@ -40,6 +42,12 @@ void TitleScreen::draw()
 	drawRect.w = 634;
 	drawRect.h = 91;
 	SDL_RenderCopy(renderer, playerVSplayer, NULL, &drawRect);
+
+	drawRect.x = statsScreenX;
+	drawRect.y = statsScreenY;
+	drawRect.w = 463;
+	drawRect.h = 75;
+	SDL_RenderCopy(renderer, statsScreen, NULL, &drawRect);
 
 }
 

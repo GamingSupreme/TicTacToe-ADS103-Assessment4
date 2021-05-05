@@ -32,7 +32,6 @@ public:
 	char player = CROSS, opponent = NAUGHT;
 
 	int minimaxCount = 0;
-	int gamesLost = 0;
 
 	GameBoard(SDL_Renderer* renderer);
 	~GameBoard();
@@ -43,7 +42,7 @@ public:
 	bool checkForWin(char type);
 	bool checkIfAnyPlacesFree();
 	void clearScreen();
-	int getGamesLost();
+	void winner();
 
 	void draw();
 

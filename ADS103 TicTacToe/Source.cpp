@@ -8,6 +8,7 @@
 #include "PlayerVsPlayer.h"
 #include "Buttons.h"
 #include "ScoreController.h"
+#include "StatsScreen.h"
 
 using namespace std;
 
@@ -49,7 +50,7 @@ int main(int argc, char** arrgv)
 	TitleScreen titleScreen(renderer);
 	PlayerVsPlayer playerVsPlayer(renderer);
 	Buttons buttonsControl(renderer);
-	ScoreController scores;
+	StatsScreen stats(renderer);
 
 	int gameState = 1;
 	vector<int> NumbersV;
@@ -82,7 +83,7 @@ int main(int argc, char** arrgv)
 				}
 				if (gameStarted == true)
 				{
-					scores.onStartUpdateArr();
+					gameBoard.onStartUpdateArr();
 					gameStarted = false;
 				}
 			}
@@ -104,7 +105,7 @@ int main(int argc, char** arrgv)
 					}
 					if (e.key.keysym.scancode == SDL_SCANCODE_RETURN)
 					{
-						scores.PlusOneAiGamePlayed();
+						gameBoard.PlusOneAiGamePlayed();
 						gameBoard.clearBoard();
 						gamePlayed = false;
 					}
@@ -117,7 +118,7 @@ int main(int argc, char** arrgv)
 					}
 					if (e.key.keysym.scancode == SDL_SCANCODE_P)
 					{
-						cout << scores.NumbersV[2];
+						cout << gameBoard.NumbersV.size();
 					}
 				}
 
@@ -127,6 +128,7 @@ int main(int argc, char** arrgv)
 					if (aiMove.row != -1 && aiMove.col != -1)
 					{
 						gameBoard.setTile(gameBoard.opponent, aiMove.row, aiMove.col);
+						gameBoard.winner();
 					}
 				}
 			}
@@ -147,7 +149,7 @@ int main(int argc, char** arrgv)
 					}
 					if (e.key.keysym.scancode == SDL_SCANCODE_RETURN)
 					{
-						scores.PlusOneAiGamePlayed();
+						gameBoard.PlusOneAiGamePlayed();
 						playerVsPlayer.clearBoard();
 						playerTurn = 1;
 					}
@@ -179,6 +181,37 @@ int main(int argc, char** arrgv)
 				}
 			}
 		}
+		else if (gameState == 4)
+		{
+			//Get user inputs
+			while (SDL_PollEvent(&e) != 0)
+			{
+				//user clicks close button
+				if (e.type == SDL_QUIT)
+					quit = true;
+				if (e.type == SDL_KEYDOWN)
+				{
+					if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+					{
+						quit = true;
+					}
+					if (e.key.keysym.scancode == SDL_SCANCODE_X)
+					{
+						stats.clearScreen();
+						titleScreen.draw();
+						gameState = 1;
+					}
+
+				}
+				if (gameStarted == true)
+				{
+					gameBoard.onStartUpdateArr();
+					gameStarted = false;
+				}
+			}
+
+
+		}
 
 
 		SDL_SetRenderDrawColor(renderer, 170, 170, 170, 255); //rgba(0-255) //Use paint to change color of background, the first three numbers colorate to red green and blue
@@ -192,15 +225,20 @@ int main(int argc, char** arrgv)
 			{
 				if (buttonsControl.playerVsAiButton(e))
 				{
-					scores.PlusOneAiGamePlayed();
+					gameBoard.PlusOneAiGamePlayed();
 					gameState = 2;
 					gameBoard.update();
 				}
-				else if (buttonsControl.playerVsPlayerButton(e))
+				if (buttonsControl.playerVsPlayerButton(e))
 				{
-					scores.PlusOnePvPGamePlayed();
+					gameBoard.PlusOnePvPGamePlayed();
 					gameState = 3;
 					playerVsPlayer.update();
+				}
+				if (buttonsControl.StatsScreenButton(e))
+				{
+					gameState = 4;
+					stats.update();
 				}
 			}
 		}
@@ -212,11 +250,14 @@ int main(int argc, char** arrgv)
 
 		if (gameState == 3)
 			playerVsPlayer.update();
+		if (gameState == 4)
+			stats.update();
+			
 
 		//swaps the buffers
 		SDL_RenderPresent(renderer);
 	}
 
-	scores.updateOnClose();
+	gameBoard.updateOnClose();
 	return 0;
 }

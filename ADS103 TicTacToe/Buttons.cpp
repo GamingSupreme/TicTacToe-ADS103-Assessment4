@@ -1,6 +1,6 @@
 #include "Buttons.h"
 
-int Buttons::playerVsPlayerButton(SDL_Event& event)
+bool Buttons::playerVsPlayerButton(SDL_Event& event)
 {
 	SDL_Rect ButtonTwo;
 	ButtonTwo.x = playerVsPX;
@@ -30,6 +30,23 @@ bool Buttons::playerVsAiButton(SDL_Event& event)
 		return true;
 	}
 	
+	return false;
+}
+
+bool Buttons::StatsScreenButton(SDL_Event& event)
+{
+	SDL_Rect ButtonOne;
+	ButtonOne.x = statsScreenX;
+	ButtonOne.y = statsScreenY;
+	ButtonOne.h = 71;
+	ButtonOne.w = 463;
+
+	if (event.button.x >= ButtonOne.x && event.button.x <= (ButtonOne.x + ButtonOne.w) &&
+		event.button.y >= ButtonOne.y && event.button.y <= (ButtonOne.y + ButtonOne.h))
+	{
+		return true;
+	}
+
 	return false;
 }
 

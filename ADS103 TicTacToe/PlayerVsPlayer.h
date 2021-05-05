@@ -38,6 +38,7 @@ public:
 	void clearScreen();
 	void update();
 
+
 	void draw();
 };
 

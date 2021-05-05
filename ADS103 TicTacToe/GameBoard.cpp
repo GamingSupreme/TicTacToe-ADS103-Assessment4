@@ -141,9 +141,16 @@ void GameBoard::clearScreen()
 	SDL_RenderClear(renderer);
 }
 
-int GameBoard::getGamesLost()
+void GameBoard::winner()
 {
-	return gamesLost;
+	if (checkForWin(player))
+	{
+		PlusOneAiGameWon();
+	}
+	if (checkForWin(opponent))
+	{
+		PlusOneAiGameLost();
+	}
 }
 
 void GameBoard::draw()
@@ -252,11 +259,15 @@ int GameBoard::minimax(int depth, bool isMax)
 
 	//if maximiser has won the game return his/her evaluated score
 	if (score == 10)
+	{
 		return score;
+	}
 
 	//if minimiser has won do the same
 	if (score == -10)
+	{
 		return score;
+	}
 
 	//if no winner and no moves return 0
 	if (checkIfAnyPlacesFree() == false)
@@ -321,11 +332,17 @@ int GameBoard::minimax(int depth, bool isMax, int alpha, int beta)
 
 	//if maximiser has won the game return his/her evaluated score
 	if (score == 10)
+	{
+		//PlusOneAiGameWon();
 		return score;
+	}
 
 	//if minimiser has won do the same
 	if (score == -10)
+	{
+		//PlusOneAiGameLost();
 		return score;
+	}
 
 	//if no winner and no moves return 0
 	if (checkIfAnyPlacesFree() == false)
