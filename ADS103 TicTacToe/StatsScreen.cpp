@@ -57,6 +57,8 @@ void StatsScreen::draw()
 	drawRect.h = 77;
 	drawRect.w = 294;
 	SDL_RenderCopy(renderer, exitGame, NULL, &drawRect);
+
+
 }
 
 void StatsScreen::clearScreen()

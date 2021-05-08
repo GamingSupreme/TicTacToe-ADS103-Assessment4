@@ -1,5 +1,6 @@
 #pragma once
 #include "TitleScreen.h"
+#include "GamemodeScores.h"
 class StatsScreen
 {
 public:
@@ -8,6 +9,11 @@ public:
 	int PvPGamesPlayedY = 250, PvPGamesPlayedX = 100;
 	int BotGamesLostY = 400, BotGamesLostX = 100;
 	int BotGamesWonY = 550, BotGamesWonX = 100;
+
+	GamemodeScores PlayerVsAiPlayed;
+	GamemodeScores PlayerVsAiLost;
+	GamemodeScores PlayerVsAiWon;
+	GamemodeScores PlayerVsPlayerPlayed;
 
 
 	SDL_Renderer* renderer;

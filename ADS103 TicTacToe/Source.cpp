@@ -4,12 +4,14 @@
 #include <SDL.h>
 #include <vector>
 #include <SDL_ttf.h>
+
 #include "GameBoard.h"
 #include "TitleScreen.h"
 #include "PlayerVsPlayer.h"
 #include "Buttons.h"
 #include "ScoreController.h"
 #include "StatsScreen.h"
+#include "GamemodeScores.h"
 
 using namespace std;
 
@@ -69,6 +71,11 @@ int main(int argc, char** arrgv)
 	int playerTurn = 1;
 	bool gameStarted = true;
 	bool gamePlayed = false;
+
+	GamemodeScores PvAi;
+	GamemodeScores PvAiL;
+	GamemodeScores PvAiW;
+	GamemodeScores PvP;
 
 	readfile.open("GameScores.txt");
 
@@ -222,9 +229,27 @@ int main(int argc, char** arrgv)
 				}
 			}
 
-
 		}
 
+		PvAi.setup(renderer);
+		PvAi.setText(to_string(gameBoard.NumbersV[0]));
+		PvAi.textRect.x = 780;
+		PvAi.textRect.y = 120;
+
+		PvP.setup(renderer);
+		PvP.setText(to_string(gameBoard.NumbersV[1]));
+		PvP.textRect.x = 800;
+		PvP.textRect.y = 270;
+
+		PvAiL.setup(renderer);
+		PvAiL.setText(to_string(gameBoard.NumbersV[2]));
+		PvAiL.textRect.x = 670;
+		PvAiL.textRect.y = 420;
+
+		PvAiW.setup(renderer);
+		PvAiW.setText(to_string(gameBoard.NumbersV[4]) + " LOL");
+		PvAiW.textRect.x = 680;
+		PvAiW.textRect.y = 570;
 
 		SDL_SetRenderDrawColor(renderer, 170, 170, 170, 255); //rgba(0-255) //Use paint to change color of background, the first three numbers colorate to red green and blue
 		SDL_RenderClear(renderer);
@@ -263,7 +288,13 @@ int main(int argc, char** arrgv)
 		if (gameState == 3)
 			playerVsPlayer.update();
 		if (gameState == 4)
+		{
 			stats.update();
+			PvAi.draw();
+			PvP.draw();
+			PvAiL.draw();
+			PvAiW.draw();
+		}
 			
 
 		//swaps the buffers

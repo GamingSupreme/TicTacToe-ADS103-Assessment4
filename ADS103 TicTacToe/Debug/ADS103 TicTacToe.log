@@ -1,4 +1,2 @@
 ﻿  Source.cpp
-C:\Users\joshu\Documents\Uni\Torrens\Uni Work\ADS algo\Assessnemt 4 TicTacToe\ADS103 TicTacToe\Source.cpp(24,1): error C2601: 'SDL_main': local function definitions are illegal
-C:\Users\joshu\Documents\Uni\Torrens\Uni Work\ADS algo\Assessnemt 4 TicTacToe\ADS103 TicTacToe\Source.cpp(21): message : this line contains a '{' which has not yet been matched
-C:\Users\joshu\Documents\Uni\Torrens\Uni Work\ADS algo\Assessnemt 4 TicTacToe\ADS103 TicTacToe\Source.cpp(21): fatal error C1075: '{': no matching token found
+  ADS103 TicTacToe.vcxproj -> C:\Users\joshu\Documents\Uni\Torrens\Uni Work\ADS algo\Assessnemt 4 TicTacToe\ADS103 TicTacToe\Debug\ADS103 TicTacToe.exe

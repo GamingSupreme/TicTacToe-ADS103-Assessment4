@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="Buttons.cpp" />
     <ClCompile Include="GameBoard.cpp" />
+    <ClCompile Include="GamemodeScores.cpp" />
     <ClCompile Include="PlayerVsPlayer.cpp" />
     <ClCompile Include="res_path.cpp" />
     <ClCompile Include="ScoreController.cpp" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="Buttons.h" />
     <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="GamemodeScores.h" />
     <ClInclude Include="PlayerVsPlayer.h" />
     <ClInclude Include="res_path.h" />
     <ClInclude Include="ScoreController.h" />
